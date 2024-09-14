@@ -9,6 +9,7 @@ import {
   Pressable,
   Animated,
 } from 'react-native';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import DiceOne from '../assests/One.png';
 import DiceTwo from '../assests/Two.png';
 import DiceThree from '../assests/Three.png';
@@ -20,7 +21,11 @@ type DiceProps = PropsWithChildren<{
   imageUrl: ImageSourcePropType;
   diceAnimation: Animated.Value; // Added animated value prop
 }>;
-
+// Optional configuration
+const options = {
+  enableVibrateFallback: true,
+  ignoreAndroidSystemSettings: false,
+};
 const Dice = ({imageUrl, diceAnimation}: DiceProps): React.JSX.Element => {
   const animatedStyle = {
     transform: [
@@ -31,6 +36,11 @@ const Dice = ({imageUrl, diceAnimation}: DiceProps): React.JSX.Element => {
         }),
       },
     ],
+  };
+  // Optional configuration
+  const options = {
+    enableVibrateFallback: true,
+    ignoreAndroidSystemSettings: false,
   };
 
   return (
@@ -80,6 +90,7 @@ function App(): React.JSX.Element {
         default:
           break;
       }
+      ReactNativeHapticFeedback.trigger('impactLight', options);
     });
   };
 
